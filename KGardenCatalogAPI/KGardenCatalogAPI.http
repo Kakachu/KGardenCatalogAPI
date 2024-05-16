@@ -1,0 +1,6 @@
+@KGardenCatalogAPI_HostAddress = http://localhost:5160
+
+GET {{KGardenCatalogAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
