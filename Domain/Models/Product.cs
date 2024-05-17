@@ -6,6 +6,28 @@ namespace Domain.Models
     [Table("Products")]
     public class Product
     {
+        public Product(string name, string description, string imageUrl, decimal price, float stock, Guid? categoryId)
+        {
+            Name = name;
+            Description = description;
+            ImageUrl = imageUrl;
+            Price = price;
+            Stock = stock;
+            DateCreated = DateTime.Now;
+            CategoryId = categoryId;
+        }
+
+        public Product(Product _this, string name, string description, string imageUrl, decimal price, float stock, Guid? categoryId)
+        {
+            Id = _this.Id;
+            Name = name;
+            Description = description;
+            ImageUrl = imageUrl;
+            Price = price;
+            Stock = stock;
+            DateCreated = _this.DateCreated;
+            CategoryId = categoryId;
+        }
 
         [Key]
         public Guid Id { get; private set; }

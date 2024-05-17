@@ -1,7 +1,7 @@
 ﻿using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infra
+namespace Infra.Data.Context
 {
     public class AppDbContext : DbContext
     {

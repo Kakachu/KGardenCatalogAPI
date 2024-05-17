@@ -1,4 +1,6 @@
-using Infra;
+using Application.Interfaces;
+using Application.Services;
+using Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +18,9 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 
 builder.Services.AddDbContext<AppDbContext>(options => 
         options.UseSqlServer(connectionString, b => b.MigrationsAssembly("KGardenCatalogAPI")));
+
+//Application
+builder.Services.AddScoped<IProductAppService, ProductAppService>();
 
 var app = builder.Build();
 
