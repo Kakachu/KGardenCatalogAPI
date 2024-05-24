@@ -54,5 +54,16 @@ namespace KGardenCatalogAPI.Controllers
 
             return Ok(productViewModel);
         }
+
+        [Route("products/remove-product/{id}")]
+        [HttpDelete]
+        public async Task<IActionResult> RemoveProduct(Guid id)
+        {
+            var result = await _productAppService.Remove(id);
+            if (result != HttpStatusCode.OK)
+                return StatusCode((int)result, "Product not found");
+
+            return Ok();
+        }
     }
 }

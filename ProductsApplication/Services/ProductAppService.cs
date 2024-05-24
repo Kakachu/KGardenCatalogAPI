@@ -2,8 +2,9 @@
 using Application.ViewModels;
 using Domain.Models;
 using Infra.Data.Context;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 using System.Net;
 
 namespace Application.Services
@@ -52,6 +53,18 @@ namespace Application.Services
                           productViewModel.Price, productViewModel.Stock, productViewModel.CategoryId);
 
             _context.Entry(product).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return HttpStatusCode.OK;
+        }
+
+        public async Task<HttpStatusCode> Remove(Guid id)
+        {
+            var product = await GetById(id);
+            if (product == null)
+                return HttpStatusCode.NotFound;
+
+            _context.Products.Remove(product);
             _context.SaveChanges();
 
             return HttpStatusCode.OK;
