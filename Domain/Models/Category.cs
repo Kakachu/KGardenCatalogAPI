@@ -6,6 +6,13 @@ namespace Domain.Models
     [Table("Categories")]
     public class Category
     {
+        public Category(string name, string imageUrl)
+        {
+            Name = name;
+            ImageUrl = imageUrl;
+            DateCreated = DateTime.Now;
+        }
+
         [Key]
         public Guid Id { get; private set; }
 
@@ -16,5 +23,9 @@ namespace Domain.Models
         [Required]
         [StringLength(300)]
         public string? ImageUrl { get; private set; }
+
+        public DateTime DateCreated { get; private set; }   
+
+        public List<Product> Products { get; private set; }
     }
 }
