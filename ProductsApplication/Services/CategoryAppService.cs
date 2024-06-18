@@ -2,9 +2,8 @@
 using Application.ViewModels;
 using Domain.Models;
 using Infra.Data.Context;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Common;
-using System.Net;
 
 namespace Application.Services
 {
@@ -19,19 +18,19 @@ namespace Application.Services
 
         public async Task<Category> GetById(Guid id)
         {
-            var category = _context.Categories.FirstOrDefault(x => x.Id == id);
+            var category = _context.Categories.AsNoTracking().FirstOrDefault(x => x.Id == id);
             return category;
         }
 
         public async Task<List<Category>> GetAllCategories()
         {
-            var listCategory = await _context.Categories.ToListAsync();
+            var listCategory = await _context.Categories.AsNoTracking().ToListAsync();
             return listCategory;
         }
 
         public async Task<List<Category>> GetIncludeAllCategories()
         {
-            var listCategory = await _context.Categories.Include(x => x.Products).ToListAsync();
+            var listCategory = await _context.Categories.Include(x => x.Products).AsNoTracking().ToListAsync();
             return listCategory;
         }
 
@@ -45,28 +44,28 @@ namespace Application.Services
             return category;
         }
 
-        public async Task<HttpStatusCode> Update(Guid id, CategoryViewModel categoryViewModel)
+        public async Task<int> Update(Guid id, CategoryViewModel categoryViewModel)
         {
             var category = await GetById(id);
             if (category == null)
-                return HttpStatusCode.NotFound;
+                return StatusCodes.Status404NotFound;
 
             _context.Categories.Entry(category).State = EntityState.Modified;
             _context.SaveChanges();
 
-            return HttpStatusCode.OK;
+            return StatusCodes.Status200OK;
         }
 
-        public async Task<HttpStatusCode> Delete(Guid id)
+        public async Task<int> Delete(Guid id)
         {
             var category = await GetById(id);
             if (category == null)
-                return HttpStatusCode.NotFound;
+                return StatusCodes.Status404NotFound;
 
             _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
 
-            return HttpStatusCode.OK;
+            return StatusCodes.Status200OK;
         }
     }
 }

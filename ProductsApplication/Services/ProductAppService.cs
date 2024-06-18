@@ -3,9 +3,7 @@ using Application.ViewModels;
 using Domain.Models;
 using Infra.Data.Context;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Net;
 
 namespace Application.Services
 {
@@ -40,14 +38,14 @@ namespace Application.Services
             return product;
         }
 
-        public async Task<HttpStatusCode> Update(Guid id, ProductViewModel productViewModel)
+        public async Task<int> Update(Guid id, ProductViewModel productViewModel)
         {
             if (id != productViewModel.Id)
-                return HttpStatusCode.BadRequest;
+                return StatusCodes.Status400BadRequest;
 
             var productValidate = await GetById(id);
             if (productValidate == null)
-                return HttpStatusCode.NotFound;
+                return StatusCodes.Status404NotFound;
 
             var product = new Product(productValidate, productViewModel.Name, productViewModel.Description, productViewModel.ImageUrl,
                           productViewModel.Price, productViewModel.Stock, productViewModel.CategoryId);
@@ -55,19 +53,19 @@ namespace Application.Services
             _context.Entry(product).State = EntityState.Modified;
             _context.SaveChanges();
 
-            return HttpStatusCode.OK;
+            return StatusCodes.Status200OK;
         }
 
-        public async Task<HttpStatusCode> Remove(Guid id)
+        public async Task<int> Remove(Guid id)
         {
             var product = await GetById(id);
             if (product == null)
-                return HttpStatusCode.NotFound;
+                return StatusCodes.Status404NotFound;
 
             _context.Products.Remove(product);
             _context.SaveChanges();
 
-            return HttpStatusCode.OK;
+            return StatusCodes.Status200OK;
         }
     }
 }

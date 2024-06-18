@@ -1,7 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace KGardenCatalogAPI.Controllers
 {
@@ -18,52 +17,87 @@ namespace KGardenCatalogAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProduct()
         {
-            var products = await _productAppService.GetAllProducts();
-            if (!products.Any())
-                return NotFound("Products not found...");
+            try
+            {
+                var products = await _productAppService.GetAllProducts();
+                if (!products.Any())
+                    return NotFound("Products not found...");
 
-            return Ok(products);
+                return Ok(products);
+            }
+            catch(Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "An unexpected error has occurred");
+            }
         }
 
         [Route("products/get-product/{id?}", Name = "GetProduct")]
         [HttpGet]
         public async Task<IActionResult> GetProduct(Guid id)
         {
-            var product = await _productAppService.GetById(id);
-            if (product == null)
-                return NotFound("Product not found...");
+            try
+            {
+                var product = await _productAppService.GetById(id);
+                if (product == null)
+                    return NotFound($"Product with id: {id} was not found...");
 
-            return Ok(product);
+                return Ok(product);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "An unexpected error has occurred");
+            }
         }
 
         [Route("products/create-product")]
         [HttpPost]
         public async Task<IActionResult> RegisterProduct(ProductViewModel productViewModel)
         {
-            var result = await _productAppService.Register(productViewModel);
-            return new CreatedAtRouteResult("GetProduct", new { id = result.Id }, result);
+            try
+            {
+                var result = await _productAppService.Register(productViewModel);
+                return new CreatedAtRouteResult("GetProduct", new { id = result.Id }, result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "An unexpected error has occurred");
+            }
         }
 
         [Route("products/update-product/{id}")]
         [HttpPut]
         public async Task<IActionResult> UpdateProduct(Guid id, ProductViewModel productViewModel)
         {
-            var result = await _productAppService.Update(id, productViewModel);
-            if (result != HttpStatusCode.OK)
-                return StatusCode((int)result);
+            try
+            {
+                var result = await _productAppService.Update(id, productViewModel);
+                if (result != StatusCodes.Status200OK)
+                    return StatusCode(result);
 
-            return Ok(productViewModel);
+                return Ok(productViewModel);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "An unexpected error has occurred");
+            }
         }
 
         [Route("products/remove-product/{id}")]
         [HttpDelete]
         public async Task<IActionResult> RemoveProduct(Guid id)
         {
-            var result = await _productAppService.Remove(id);
-            if (result != HttpStatusCode.OK)
-                return StatusCode((int)result, "Product not found");
+            try
+            {
+                var result = await _productAppService.Remove(id);
+                if (result != StatusCodes.Status200OK)
+                    return StatusCode(result, "Product not found");
 
-            return Ok();
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, "An unexpected error has occurred");
+            }
         }
     }
 }

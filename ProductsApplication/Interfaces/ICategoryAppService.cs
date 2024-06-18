@@ -1,6 +1,5 @@
 ﻿using Application.ViewModels;
 using Domain.Models;
-using System.Net;
 
 namespace Application.Interfaces
 {
@@ -14,9 +13,9 @@ namespace Application.Interfaces
 
         Task<Category> Register(CategoryViewModel viewModel);
 
-        Task<HttpStatusCode> Update(Guid id, CategoryViewModel viewModel);
+        Task<int> Update(Guid id, CategoryViewModel viewModel);
 
-        Task<HttpStatusCode> Delete(Guid id);
+        Task<int> Delete(Guid id);
     }
 }
     

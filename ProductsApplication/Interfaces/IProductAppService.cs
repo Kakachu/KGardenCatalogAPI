@@ -12,8 +12,8 @@ namespace Application.Interfaces
 
         Task<Product> Register(ProductViewModel productViewModel);
 
-        Task<HttpStatusCode> Update(Guid id, ProductViewModel productViewModel);
+        Task<int> Update(Guid id, ProductViewModel productViewModel);
 
-        Task<HttpStatusCode> Remove(Guid id);
+        Task<int> Remove(Guid id);
     }
 }
