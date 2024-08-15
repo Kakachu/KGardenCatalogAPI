@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.ViewModels;
+using KGardenCatalogAPI.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KGardenCatalogAPI.Controllers
@@ -15,6 +16,7 @@ namespace KGardenCatalogAPI.Controllers
 
         [Route("products/get-all-products")]
         [HttpGet]
+        [ServiceFilter(typeof(ApiLoggingFilter))]
         public async Task<IActionResult> GetAllProduct()
         {
             try

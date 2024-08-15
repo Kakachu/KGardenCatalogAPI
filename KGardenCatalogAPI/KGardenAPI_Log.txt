@@ -1,0 +1,20 @@
+Information : 0 - Application started. Press Ctrl+C to shut down.
+Information : 0 - Hosting environment: Development
+Information : 0 - Content root path: D:\Dev\Projects\ASP.NET 7.0\KGardenCatalogAPI\KGardenCatalogAPI
+Warning : 30000 - No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+Information : 20101 - Executed DbCommand (57ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+Information : 0 - --- Executing -> OnActionExecuting ---
+Information : 0 - ------------------------------------------------
+Information : 0 - 11:46:14 PM
+Information : 0 - ModelState : True
+Information : 0 - ------------------------------------------------
+Information : 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryId], [p].[DateCreated], [p].[Description], [p].[ImageUrl], [p].[Name], [p].[Price], [p].[Stock]
+FROM [Products] AS [p]
+Information : 0 - --- Executing -> OnActionExecuted ---
+Information : 0 - ------------------------------------------------
+Information : 0 - 11:46:14 PM
+Information : 0 - Status Code : 200
+Information : 0 - ------------------------------------------------

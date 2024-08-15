@@ -2,6 +2,8 @@ using Application.Interfaces;
 using Application.Services;
 using Domain.Extensions;
 using Infra.Data.Context;
+using KGardenCatalogAPI.Filters;
+using KGardenCatalogAPI.Logging;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -23,9 +25,17 @@ string? connectionString = builder.Configuration.GetConnectionString("DefaultCon
 builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(connectionString, b => b.MigrationsAssembly("KGardenCatalogAPI")));
 
+//Logger
+builder.Services.AddScoped<ApiLoggingFilter>();
+
 //Application
 builder.Services.AddScoped<IProductAppService, ProductAppService>();
 builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
+
+builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
+{
+    LogLevel = LogLevel.Information
+}));
 
 var app = builder.Build();
 
