@@ -3,17 +3,16 @@ using Infra.Data.Context;
 
 namespace Domain.Repositories
 {
-    public class RepositoryDBR<T> where T : class, IRepositoryDBR<T>
+    public class RepositoryDBR<T> : IRepositoryDBR<T>  where T : class
     {
-        private readonly AppDbContext _context;
+        protected readonly AppDbContext _context;
         public RepositoryDBR(AppDbContext context)
         {
             _context = context;
         }
 
-        public void Delete(Guid id)
+        public void Delete(T entity)
         {
-            var entity = GetById(id);
             _context.Set<T>().Remove(entity);
             _context.SaveChanges();
         }
@@ -23,23 +22,22 @@ namespace Domain.Repositories
             return _context.Set<T>();
         }
 
-        public T GetById(Guid id)
+        public T? GetById(Guid id)
         {
-            var entity = _context.Set<T>().Find(id);
-            if (entity is null)
-                throw new ArgumentNullException();
-
-            return entity;
+            return _context.Set<T>().Find(id);
         }
 
         public T Register(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Add(entity);
+            _context.SaveChanges();
+            return entity;
         }
 
-        public T Update(T entity)
+        public void Update(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
+            _context.SaveChanges();
         }
     }
 }

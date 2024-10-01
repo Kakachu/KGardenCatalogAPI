@@ -1,47 +1,39 @@
 ﻿using Application.Interfaces;
 using Application.ViewModels;
+using Domain.Interfaces;
 using Domain.Models;
-using Infra.Data.Context;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
 {
     public class CategoryAppService : ICategoryAppService
     {
-        private readonly AppDbContext _context;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoryAppService(AppDbContext appDbContext)
+        public CategoryAppService(ICategoryRepository categoryRepository)
         {
-            _context = appDbContext;
+            _categoryRepository = categoryRepository;
         }
 
         public async Task<Category> GetById(Guid id)
         {
-            var category = _context.Categories.AsNoTracking().FirstOrDefault(x => x.Id == id);
-            return category;
+            return _categoryRepository.GetById(id);
         }
 
         public async Task<List<Category>> GetAllCategories()
         {
-            var listCategory = await _context.Categories.AsNoTracking().ToListAsync();
-            return listCategory;
+            return _categoryRepository.GetAll().ToList();
         }
 
-        public async Task<List<Category>> GetIncludeAllCategories()
+        public async Task<List<Category>> GetAllByInclude()
         {
-            var listCategory = await _context.Categories.Include(x => x.Products).AsNoTracking().ToListAsync();
-            return listCategory;
+            return _categoryRepository.GetAllByInclude();
         }
 
         public async Task<Category> Register(CategoryViewModel categoryViewModel)
         {
             var category = new Category(categoryViewModel.Name, categoryViewModel.ImageUrl);
-
-            await _context.Categories.AddAsync(category);
-            await _context.SaveChangesAsync();
-
-            return category;
+            return _categoryRepository.Register(category);
         }
 
         public async Task<int> Update(Guid id, CategoryViewModel categoryViewModel)
@@ -50,8 +42,7 @@ namespace Application.Services
             if (category == null)
                 return StatusCodes.Status404NotFound;
 
-            _context.Categories.Entry(category).State = EntityState.Modified;
-            _context.SaveChanges();
+            _categoryRepository.Update(category);
 
             return StatusCodes.Status200OK;
         }
@@ -62,8 +53,7 @@ namespace Application.Services
             if (category == null)
                 return StatusCodes.Status404NotFound;
 
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            _categoryRepository.Delete(category);
 
             return StatusCodes.Status200OK;
         }

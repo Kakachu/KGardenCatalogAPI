@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Infra.Data.Context
 {
@@ -11,9 +12,9 @@ namespace Infra.Data.Context
             _context = context;
         }
 
-        public T GetById(Guid id)
+        public T? GetById(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().FirstOrDefault(id);
+            return _context.Set<T>().FirstOrDefault(predicate);
         }
 
         public IEnumerable<T> GetAll()

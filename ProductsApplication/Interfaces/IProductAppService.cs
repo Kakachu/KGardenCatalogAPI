@@ -1,6 +1,5 @@
 ﻿using Application.ViewModels;
 using Domain.Models;
-using System.Net;
 
 namespace Application.Interfaces
 {

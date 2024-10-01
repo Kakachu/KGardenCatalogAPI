@@ -9,7 +9,7 @@ namespace Application.Interfaces
 
         Task<List<Category>> GetAllCategories();
 
-        Task<List<Category>> GetIncludeAllCategories();
+        Task<List<Category>> GetAllByInclude();
 
         Task<Category> Register(CategoryViewModel viewModel);
 

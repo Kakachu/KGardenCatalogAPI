@@ -1,7 +1,10 @@
 using Application.Interfaces;
 using Application.Services;
 using Domain.Extensions;
+using Domain.Interfaces;
+using Domain.Repositories;
 using Infra.Data.Context;
+using Infra.Data.Repositories;
 using KGardenCatalogAPI.Filters;
 using KGardenCatalogAPI.Logging;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +40,11 @@ builder.Services.AddScoped<ApiLoggingFilter>();
 //Application
 builder.Services.AddScoped<IProductAppService, ProductAppService>();
 builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
+
+//Repository
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped(typeof(IRepositoryDBR<>), typeof(RepositoryDBR<>));
 
 builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
 {
