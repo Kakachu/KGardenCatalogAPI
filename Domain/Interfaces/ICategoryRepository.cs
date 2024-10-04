@@ -4,8 +4,8 @@ namespace Domain.Interfaces
 {
     public interface ICategoryRepository : IRepositoryDBR<Category>
     {
-        List<Category> GetAllByName(string name);
+        Task<List<Category>> GetAllByName(string name);
 
-        List<Category> GetAllByInclude();
+        Task<List<Category>> GetAllByInclude();
     }
 }

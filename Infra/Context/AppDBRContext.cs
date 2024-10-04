@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 
 namespace Infra.Data.Context
 {
@@ -12,9 +11,9 @@ namespace Infra.Data.Context
             _context = context;
         }
 
-        public T? GetById(Expression<Func<T, bool>> predicate)
+        public async Task<T?> GetById(Guid id)
         {
-            return _context.Set<T>().FirstOrDefault(predicate);
+            return await _context.Set<T>().FindAsync(id);
         }
 
         public IEnumerable<T> GetAll()
@@ -32,9 +31,9 @@ namespace Infra.Data.Context
             _context.Set<T>().Entry(entity).State = EntityState.Modified;
         }
 
-        public void Delete(Guid id) 
+        public async void Delete(Guid id) 
         {
-            var entity = GetById(id);
+            var entity = await GetById(id);
             _context.Set<T>().Remove(entity);
         }
     }

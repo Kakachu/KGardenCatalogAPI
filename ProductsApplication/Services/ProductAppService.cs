@@ -1,30 +1,27 @@
 ﻿using Application.Interfaces;
 using Application.ViewModels;
+using Domain.Interfaces;
 using Domain.Models;
-using Infra.Data.Context;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
 {
     public class ProductAppService : IProductAppService
     {
-        private readonly AppDbContext _context;
-        public ProductAppService(AppDbContext appDbContext)
+        private readonly IProductRepository _productRepository;
+        public ProductAppService(IProductRepository productRepository)
         {
-            _context = appDbContext;
+            _productRepository = productRepository;
         }
 
         public async Task<List<Product>> GetAllProducts()
         {
-            var context = await _context.Products.AsNoTracking().ToListAsync();
-            return context;
+            return await _productRepository.GetAll();
         }
 
         public async Task<Product> GetById(Guid id)
         {
-            var context = await _context.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-            return context;
+            return await _productRepository.GetById(id);
         }
 
         public async Task<Product> Register(ProductViewModel productViewModel)
@@ -32,10 +29,7 @@ namespace Application.Services
             var product = new Product(productViewModel.Name, productViewModel.Description, productViewModel.ImageUrl,
                                       productViewModel.Price, productViewModel.Stock, productViewModel.CategoryId);
 
-            await _context.Products.AddAsync(product);
-            await _context.SaveChangesAsync();
-
-            return product;
+            return await _productRepository.Register(product); 
         }
 
         public async Task<int> Update(Guid id, ProductViewModel productViewModel)
@@ -50,8 +44,7 @@ namespace Application.Services
             var product = new Product(productValidate, productViewModel.Name, productViewModel.Description, productViewModel.ImageUrl,
                           productViewModel.Price, productViewModel.Stock, productViewModel.CategoryId);
 
-            _context.Entry(product).State = EntityState.Modified;
-            _context.SaveChanges();
+            _productRepository.Update(product);
 
             return StatusCodes.Status200OK;
         }
@@ -62,8 +55,7 @@ namespace Application.Services
             if (product == null)
                 return StatusCodes.Status404NotFound;
 
-            _context.Products.Remove(product);
-            _context.SaveChanges();
+            _productRepository.Delete(product);
 
             return StatusCodes.Status200OK;
         }

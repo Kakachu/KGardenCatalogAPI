@@ -17,23 +17,23 @@ namespace Application.Services
 
         public async Task<Category> GetById(Guid id)
         {
-            return _categoryRepository.GetById(id);
+            return await _categoryRepository.GetById(id);
         }
 
         public async Task<List<Category>> GetAllCategories()
         {
-            return _categoryRepository.GetAll().ToList();
+            return await _categoryRepository.GetAll();
         }
 
         public async Task<List<Category>> GetAllByInclude()
         {
-            return _categoryRepository.GetAllByInclude();
+            return await _categoryRepository.GetAllByInclude();
         }
 
         public async Task<Category> Register(CategoryViewModel categoryViewModel)
         {
             var category = new Category(categoryViewModel.Name, categoryViewModel.ImageUrl);
-            return _categoryRepository.Register(category);
+            return await _categoryRepository.Register(category);
         }
 
         public async Task<int> Update(Guid id, CategoryViewModel categoryViewModel)

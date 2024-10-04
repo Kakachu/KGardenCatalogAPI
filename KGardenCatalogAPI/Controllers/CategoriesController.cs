@@ -40,7 +40,7 @@ namespace KGardenCatalogAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetIncludeAllCategories()
         {
-            var result = await _categoryAppService.GetIncludeAllCategories();
+            var result = await _categoryAppService.GetAllByInclude();
             if (result == null)
                 return NotFound("Categories not found...");
 

@@ -12,14 +12,14 @@ namespace Infra.Data.Repositories
         {
         }
 
-        public List<Category> GetAllByName(string name)
+        public async Task<List<Category>> GetAllByName(string name)
         {
-            return GetAll().Where(x => x.Name.Contains(name)).ToList();
+            return await _context.Categories.Where(x => x.Name == name).ToListAsync();
         }
 
-        public List<Category> GetAllByInclude()
+        public async Task<List<Category>> GetAllByInclude()
         {
-            return _context.Categories.Include(x => x.Products).ToList();
+            return await _context.Categories.Include(x => x.Products).ToListAsync();
         }
     }
 }

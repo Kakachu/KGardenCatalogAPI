@@ -1,5 +1,6 @@
 ﻿using Domain.Interfaces;
 using Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Repositories
 {
@@ -17,20 +18,20 @@ namespace Domain.Repositories
             _context.SaveChanges();
         }
 
-        public IEnumerable<T> GetAll()
+        public async Task<List<T>> GetAll()
         {
-            return _context.Set<T>();
+            return await _context.Set<T>().ToListAsync();
         }
 
-        public T? GetById(Guid id)
+        public async Task<T?> GetById(Guid id)
         {
-            return _context.Set<T>().Find(id);
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public T Register(T entity)
+        public async Task<T> Register(T entity)
         {
-            _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+            await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
             return entity;
         }
 

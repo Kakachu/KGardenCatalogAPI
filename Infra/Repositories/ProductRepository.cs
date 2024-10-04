@@ -2,6 +2,7 @@
 using Domain.Models;
 using Domain.Repositories;
 using Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infra.Data.Repositories
 {
@@ -12,9 +13,9 @@ namespace Infra.Data.Repositories
             
         }
 
-        public List<Product> GetAllByCategory(Guid categoryId)
+        public async Task<List<Product>> GetAllByCategory(Guid categoryId)
         {
-            var context = GetAll().Where(x => x.CategoryId == categoryId).ToList();
+            var context = await _context.Products.Where(x => x.CategoryId == categoryId).ToListAsync();
             return context;
         }
     }

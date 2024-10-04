@@ -4,11 +4,11 @@ namespace Domain.Interfaces
 {
     public interface IRepositoryDBR<T> where T : class
     {
-        T? GetById(Guid id);
+        Task<T?> GetById(Guid id);
 
-        IEnumerable<T> GetAll();
+        Task<List<T>> GetAll();
 
-        T Register (T entity);
+        Task<T> Register (T entity);
 
         void Update(T entity);
 
