@@ -15,7 +15,6 @@ namespace Domain.Repositories
         public void Delete(T entity)
         {
             _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
         }
 
         public async Task<List<T>> GetAll()
@@ -31,14 +30,12 @@ namespace Domain.Repositories
         public async Task<T> Register(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
-            await _context.SaveChangesAsync();
             return entity;
         }
 
         public void Update(T entity)
         {
             _context.Set<T>().Update(entity);
-            _context.SaveChanges();
         }
     }
 }

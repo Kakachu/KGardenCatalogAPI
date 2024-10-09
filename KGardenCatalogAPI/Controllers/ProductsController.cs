@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.ViewModels;
+using Infra.Data.UnitOfWork;
 using KGardenCatalogAPI.Filters;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +10,11 @@ namespace KGardenCatalogAPI.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IProductAppService _productAppService;
-        public ProductsController(IProductAppService productAppService)
+        private readonly IUnitOfWork _uow;
+        public ProductsController(IProductAppService productAppService, IUnitOfWork uow)
         {
             _productAppService = productAppService;
+            _uow = uow;
         }
 
         [Route("products/get-all-products")]
@@ -42,6 +45,7 @@ namespace KGardenCatalogAPI.Controllers
         public async Task<IActionResult> RegisterProduct(ProductViewModel productViewModel)
         {
             var result = await _productAppService.Register(productViewModel);
+            _uow.Commit();
             return new CreatedAtRouteResult("GetProduct", new { id = result.Id }, result);
         }
 
@@ -53,6 +57,7 @@ namespace KGardenCatalogAPI.Controllers
             if (result != StatusCodes.Status200OK)
                 return StatusCode(result);
 
+            _uow.Commit();
             return Ok(productViewModel);
         }
 
@@ -64,6 +69,7 @@ namespace KGardenCatalogAPI.Controllers
             if (result != StatusCodes.Status200OK)
                 return StatusCode(result, "Product not found");
 
+            _uow.Commit();
             return Ok();
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.ViewModels;
+using Infra.Data.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KGardenCatalogAPI.Controllers
@@ -9,9 +10,11 @@ namespace KGardenCatalogAPI.Controllers
     {
 
         private readonly ICategoryAppService _categoryAppService;
-        public CategoriesController(ICategoryAppService categoryAppService)
+        private readonly IUnitOfWork _uow;
+        public CategoriesController(ICategoryAppService categoryAppService, IUnitOfWork uow)
         {
             _categoryAppService = categoryAppService;
+            _uow = uow;
         }
 
         [Route("categories/get-category/{id}", Name = "GetCategory")]
@@ -52,6 +55,8 @@ namespace KGardenCatalogAPI.Controllers
         public async Task<IActionResult> RegisterCategory(CategoryViewModel categoryViewModel)
         {
             var result = await _categoryAppService.Register(categoryViewModel);
+
+            _uow.Commit();
             return new CreatedAtRouteResult("GetCategory", new { id = result.Id }, result);
         }
 
@@ -63,6 +68,7 @@ namespace KGardenCatalogAPI.Controllers
             if (result != StatusCodes.Status200OK)
                 return StatusCode(result);
 
+            _uow.Commit();
             return Ok(categoryViewModel);
         }
 
@@ -74,6 +80,7 @@ namespace KGardenCatalogAPI.Controllers
             if (result != StatusCodes.Status200OK)
                 return StatusCode(result);
 
+            _uow.Commit();
             return Ok();
         }
     }

@@ -5,6 +5,7 @@ using Domain.Interfaces;
 using Domain.Repositories;
 using Infra.Data.Context;
 using Infra.Data.Repositories;
+using Infra.Data.UnitOfWork;
 using KGardenCatalogAPI.Filters;
 using KGardenCatalogAPI.Logging;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,7 @@ builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped(typeof(IRepositoryDBR<>), typeof(RepositoryDBR<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Logging.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
 {
