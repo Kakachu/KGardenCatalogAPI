@@ -42,7 +42,7 @@ namespace Application.Services
             if (category == null)
                 return StatusCodes.Status404NotFound;
 
-            _categoryRepository.Update(category);
+            _categoryRepository.Update(new Category(categoryViewModel.Name, categoryViewModel.ImageUrl));
 
             return StatusCodes.Status200OK;
         }

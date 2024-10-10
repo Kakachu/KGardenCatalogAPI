@@ -13,7 +13,7 @@ namespace Application.ViewModels
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
 
-        [JsonProperty("products")]
-        public List<ProductViewModel> Products { get; set; }
+        //[JsonProperty("products")]
+        //public List<ProductViewModel> Products { get; set; }
     }
 }
