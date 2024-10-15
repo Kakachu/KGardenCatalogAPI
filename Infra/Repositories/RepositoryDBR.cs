@@ -33,9 +33,18 @@ namespace Domain.Repositories
             return entity;
         }
 
-        public void Update(T entity)
+        public async Task<T> Update(T entity, Guid id)
         {
-            _context.Set<T>().Update(entity);
+            if (entity is null)
+                return null;
+
+            T entityExist = await GetById(id);
+            if (entityExist is not null)
+            {
+                _context.Entry(entityExist).CurrentValues.SetValues(entity);
+            }
+
+            return entityExist;
         }
     }
 }

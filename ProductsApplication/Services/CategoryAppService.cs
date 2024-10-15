@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Application.ViewModels;
+using AutoMapper;
 using Domain.Interfaces;
 using Domain.Models;
 using Microsoft.AspNetCore.Http;
@@ -9,51 +10,48 @@ namespace Application.Services
     public class CategoryAppService : ICategoryAppService
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IMapper _mapper;
 
-        public CategoryAppService(ICategoryRepository categoryRepository)
+        public CategoryAppService(ICategoryRepository categoryRepository, IMapper mapper)
         {
             _categoryRepository = categoryRepository;
+            _mapper = mapper;
         }
 
-        public async Task<Category> GetById(Guid id)
+        public async Task<CategoryViewModel> GetById(Guid id)
         {
-            return await _categoryRepository.GetById(id);
+
+            return _mapper.Map<CategoryViewModel>(await _categoryRepository.GetById(id));
         }
 
-        public async Task<List<Category>> GetAllCategories()
+        public async Task<List<CategoryViewModel>> GetAllCategories()
         {
-            return await _categoryRepository.GetAll();
+            return _mapper.Map<List<CategoryViewModel>>(await _categoryRepository.GetAll());
         }
 
-        public async Task<List<Category>> GetAllByInclude()
+        public async Task<CategoryViewModel> Register(CategoryViewModel categoryViewModel)
         {
-            return await _categoryRepository.GetAllByInclude();
-        }
-
-        public async Task<Category> Register(CategoryViewModel categoryViewModel)
-        {
-            var category = new Category(categoryViewModel.Name, categoryViewModel.ImageUrl);
-            return await _categoryRepository.Register(category);
+            var category = _mapper.Map<Category>(categoryViewModel);
+            return _mapper.Map<CategoryViewModel>(await _categoryRepository.Register(category));
         }
 
         public async Task<int> Update(Guid id, CategoryViewModel categoryViewModel)
         {
-            var category = await GetById(id);
-            if (category == null)
+            var category = _mapper.Map<Category>(categoryViewModel);
+            var updateResult = await _categoryRepository.Update(category, id);
+            if (updateResult is null)
                 return StatusCodes.Status404NotFound;
-
-            _categoryRepository.Update(new Category(categoryViewModel.Name, categoryViewModel.ImageUrl));
 
             return StatusCodes.Status200OK;
         }
 
         public async Task<int> Delete(Guid id)
         {
-            var category = await GetById(id);
-            if (category == null)
+            var categoryViewModel = await GetById(id);
+            if (categoryViewModel == null)
                 return StatusCodes.Status404NotFound;
 
-            _categoryRepository.Delete(category);
+            _categoryRepository.Delete(_mapper.Map<Category>(categoryViewModel));
 
             return StatusCodes.Status200OK;
         }

@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace Domain.Interfaces
+﻿namespace Domain.Interfaces
 {
     public interface IRepositoryDBR<T> where T : class
     {
@@ -10,7 +8,7 @@ namespace Domain.Interfaces
 
         Task<T> Register (T entity);
 
-        void Update(T entity);
+        Task<T> Update(T entity, Guid id);
 
         void Delete(T entity);
     }

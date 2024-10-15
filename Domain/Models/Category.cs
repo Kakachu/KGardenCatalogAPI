@@ -18,14 +18,12 @@ namespace Domain.Models
 
         [Required]
         [StringLength(80)]
-        public string? Name { get; private set; }
+        public string? Name { get; set; }
 
         [Required]
         [StringLength(300)]
         public string? ImageUrl { get; private set; }
 
         public DateTime DateCreated { get; private set; }   
-
-        public List<Product> Products { get; private set; }
     }
 }

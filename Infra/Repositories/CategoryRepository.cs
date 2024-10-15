@@ -16,10 +16,5 @@ namespace Infra.Data.Repositories
         {
             return await _context.Categories.Where(x => x.Name == name).ToListAsync();
         }
-
-        public async Task<List<Category>> GetAllByInclude()
-        {
-            return await _context.Categories.Include(x => x.Products).ToListAsync();
-        }
     }
 }

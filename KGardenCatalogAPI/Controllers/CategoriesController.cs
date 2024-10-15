@@ -39,17 +39,6 @@ namespace KGardenCatalogAPI.Controllers
             return Ok(result);
         }
 
-        [Route("categories/get-include-all-categories")]
-        [HttpGet]
-        public async Task<IActionResult> GetIncludeAllCategories()
-        {
-            var result = await _categoryAppService.GetAllByInclude();
-            if (result == null)
-                return NotFound("Categories not found...");
-
-            return Ok(result);
-        }
-
         [Route("categories/register-category")]
         [HttpPost]
         public async Task<IActionResult> RegisterCategory(CategoryViewModel categoryViewModel)

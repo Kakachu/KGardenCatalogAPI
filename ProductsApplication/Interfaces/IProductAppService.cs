@@ -1,15 +1,14 @@
 ﻿using Application.ViewModels;
-using Domain.Models;
 
 namespace Application.Interfaces
 {
     public interface IProductAppService
     {
-        Task<List<Product>> GetAllProducts();
+        Task<List<ProductViewModel>> GetAllProducts();
 
-        Task<Product> GetById(Guid id);
+        Task<ProductViewModel> GetById(Guid id);
 
-        Task<Product> Register(ProductViewModel productViewModel);
+        Task<ProductViewModel> Register(ProductViewModel productViewModel);
 
         Task<int> Update(Guid id, ProductViewModel productViewModel);
 

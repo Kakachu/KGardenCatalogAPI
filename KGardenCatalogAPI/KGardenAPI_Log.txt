@@ -137,3 +137,133 @@ SET IMPLICIT_TRANSACTIONS OFF;
 SET NOCOUNT ON;
 INSERT INTO [Categories] ([Id], [DateCreated], [ImageUrl], [Name])
 VALUES (@p0, @p1, @p2, @p3);
+Information : 0 - Application started. Press Ctrl+C to shut down.
+Information : 0 - Hosting environment: Development
+Information : 0 - Content root path: D:\Dev\Projects\ASP.NET 7.0\KGardenCatalogAPI\KGardenCatalogAPI
+Warning : 30000 - No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+Information : 20101 - Executed DbCommand (59ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+Information : 0 - --- Executing -> OnActionExecuting ---
+Information : 0 - ------------------------------------------------
+Information : 0 - 10:09:16 PM
+Information : 0 - ModelState : True
+Information : 0 - ------------------------------------------------
+Information : 20101 - Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [p].[Id], [p].[CategoryId], [p].[DateCreated], [p].[Description], [p].[ImageUrl], [p].[Name], [p].[Price], [p].[Stock]
+FROM [Products] AS [p]
+Information : 0 - --- Executing -> OnActionExecuted ---
+Information : 0 - ------------------------------------------------
+Information : 0 - 10:09:23 PM
+Information : 0 - Status Code : 200
+Information : 0 - ------------------------------------------------
+Information : 20101 - Executed DbCommand (86ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__get_Item_0
+Error : 0 - An unexpected error has occurred: Status Code 500
+Information : 20101 - Executed DbCommand (4ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__get_Item_0
+Error : 0 - An unexpected error has occurred: Status Code 500
+Information : 20101 - Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name], [p].[Id], [p].[CategoryId], [p].[DateCreated], [p].[Description], [p].[ImageUrl], [p].[Name], [p].[Price], [p].[Stock]
+FROM [Categories] AS [c]
+LEFT JOIN [Products] AS [p] ON [c].[Id] = [p].[CategoryId]
+ORDER BY [c].[Id]
+Information : 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name], [p].[Id], [p].[CategoryId], [p].[DateCreated], [p].[Description], [p].[ImageUrl], [p].[Name], [p].[Price], [p].[Stock]
+FROM [Categories] AS [c]
+LEFT JOIN [Products] AS [p] ON [c].[Id] = [p].[CategoryId]
+ORDER BY [c].[Id]
+Information : 0 - Application started. Press Ctrl+C to shut down.
+Information : 0 - Hosting environment: Development
+Information : 0 - Content root path: D:\Dev\Projects\ASP.NET 7.0\KGardenCatalogAPI\KGardenCatalogAPI
+Warning : 30000 - No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+Information : 20101 - Executed DbCommand (84ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__get_Item_0
+Error : 0 - An unexpected error has occurred: Status Code 500
+Information : 20101 - Executed DbCommand (6ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__get_Item_0
+Error : 0 - An unexpected error has occurred: Status Code 500
+Information : 20101 - Executed DbCommand (4ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__get_Item_0
+Error : 0 - An unexpected error has occurred: Status Code 500
+Information : 0 - Application started. Press Ctrl+C to shut down.
+Information : 0 - Hosting environment: Development
+Information : 0 - Content root path: D:\Dev\Projects\ASP.NET 7.0\KGardenCatalogAPI\KGardenCatalogAPI
+Warning : 30000 - No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+Information : 20101 - Executed DbCommand (53ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+Information : 20101 - Executed DbCommand (45ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__get_Item_0
+Error : 0 - An unexpected error has occurred: Status Code 500
+Information : 20101 - Executed DbCommand (4ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__get_Item_0
+Error : 0 - An unexpected error has occurred: Status Code 500
+Information : 0 - Application started. Press Ctrl+C to shut down.
+Information : 0 - Hosting environment: Development
+Information : 0 - Content root path: D:\Dev\Projects\ASP.NET 7.0\KGardenCatalogAPI\KGardenCatalogAPI
+Warning : 30000 - No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+Information : 20101 - Executed DbCommand (48ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+Information : 20101 - Executed DbCommand (91ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__get_Item_0
+Error : 0 - An unexpected error has occurred: Status Code 500
+Information : 20101 - Executed DbCommand (4ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__get_Item_0
+Information : 0 - Application started. Press Ctrl+C to shut down.
+Information : 0 - Hosting environment: Development
+Information : 0 - Content root path: D:\Dev\Projects\ASP.NET 7.0\KGardenCatalogAPI\KGardenCatalogAPI
+Warning : 30000 - No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+Information : 20101 - Executed DbCommand (49ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+Information : 20101 - Executed DbCommand (41ms) [Parameters=[@p3='?' (DbType = Guid), @p0='?' (DbType = DateTime2), @p1='?' (Size = 300), @p2='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Categories] SET [DateCreated] = @p0, [ImageUrl] = @p1, [Name] = @p2
+OUTPUT 1
+WHERE [Id] = @p3;
+Information : 0 - Application started. Press Ctrl+C to shut down.
+Information : 0 - Hosting environment: Development
+Information : 0 - Content root path: D:\Dev\Projects\ASP.NET 7.0\KGardenCatalogAPI\KGardenCatalogAPI
+Warning : 30000 - No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+Information : 20101 - Executed DbCommand (49ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+Information : 20101 - Executed DbCommand (41ms) [Parameters=[@__get_Item_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
+WHERE [c].[Id] = @__get_Item_0
+Information : 20101 - Executed DbCommand (4ms) [Parameters=[@p3='?' (DbType = Guid), @p0='?' (DbType = DateTime2), @p1='?' (Size = 300), @p2='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Categories] SET [DateCreated] = @p0, [ImageUrl] = @p1, [Name] = @p2
+OUTPUT 1
+WHERE [Id] = @p3;
+Information : 20101 - Executed DbCommand (7ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime2), @p2='?' (Size = 300), @p3='?' (Size = 80)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [Categories] ([Id], [DateCreated], [ImageUrl], [Name])
+VALUES (@p0, @p1, @p2, @p3);
+Information : 20101 - Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [c].[Id], [c].[DateCreated], [c].[ImageUrl], [c].[Name]
+FROM [Categories] AS [c]
