@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Application.ViewModels
+﻿namespace Application.ViewModels
 {
     public class CategoryViewModel
     {

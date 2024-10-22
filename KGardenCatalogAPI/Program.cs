@@ -1,11 +1,8 @@
 using Application.Interfaces;
 using Application.Mapper;
 using Application.Services;
-using Application.ViewModels;
-using AutoMapper;
 using Domain.Extensions;
 using Domain.Interfaces;
-using Domain.Models;
 using Domain.Repositories;
 using Infra.Data.Context;
 using Infra.Data.Repositories;
@@ -26,7 +23,7 @@ builder.Services.AddControllers(options =>
 .AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-});
+}).AddNewtonsoftJson();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

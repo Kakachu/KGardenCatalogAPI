@@ -10,6 +10,9 @@ namespace Application.Mapper
         {
             CreateMap<Category, CategoryViewModel>().ReverseMap();
             CreateMap<Product, ProductViewModel>().ReverseMap();
+            CreateMap<ProductViewModel, ProductStockUpdateResponseViewModel>().ReverseMap();
+            CreateMap<ProductViewModel, ProductStockUpdateRequestViewModel>().ReverseMap();
         }
     }
 }
+  

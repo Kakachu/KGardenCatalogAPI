@@ -2,6 +2,7 @@
 using Application.ViewModels;
 using Infra.Data.UnitOfWork;
 using KGardenCatalogAPI.Filters;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KGardenCatalogAPI.Controllers
@@ -59,6 +60,25 @@ namespace KGardenCatalogAPI.Controllers
 
             _uow.Commit();
             return Ok(productViewModel);
+        }
+
+        [Route("products/update-product-partial/{id}")]
+        [HttpPatch]
+        public async Task<IActionResult> UpdateProductStock(Guid id, JsonPatchDocument<ProductStockUpdateRequestViewModel> productUpdatePatchRequest)
+        {
+            if (productUpdatePatchRequest is null || id == default)
+                return BadRequest();
+
+            var productUpdateRequest = await _productAppService.MapProductRequest(id);
+            if (productUpdateRequest is null)
+                return NotFound();
+
+            productUpdatePatchRequest.ApplyTo(productUpdateRequest, ModelState);
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var updateProductResponse = await _productAppService.UpdatePartial(id, productUpdateRequest);
+            return Ok(updateProductResponse);
         }
 
         [Route("products/remove-product/{id}")]

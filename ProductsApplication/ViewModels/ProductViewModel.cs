@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Application.ViewModels
@@ -24,11 +23,12 @@ namespace Application.ViewModels
         public decimal Price { get; set; }
 
         [JsonPropertyName("stock")]
+        [Range(1, 9999, ErrorMessage = "Stock value must be between {1} and {2}")]
         public float Stock { get; set; }
 
         public Guid? CategoryId { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) 
         {
             if (!string.IsNullOrEmpty(this.Name))
             {
@@ -39,10 +39,10 @@ namespace Application.ViewModels
                     yield return new ValidationResult("The first letter of the field 'Product Name' must be uppercase", new[] { nameof(this.Name) });
                 }
 
-                if (this.Stock <= 0)
-                {
-                    yield return new ValidationResult("The field 'Stock' must be greater than 0", new[] { nameof(this.Stock) });
-                }
+                //if (this.Stock <= 0)
+                //{
+                //    yield return new ValidationResult("The field 'Stock' must be greater than 0", new[] { nameof(this.Stock) });
+                //}
             }
         }
 
